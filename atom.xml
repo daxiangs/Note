@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://daxiangs.github.io/Note/</id>
     <title>daxiangs</title>
-    <updated>2020-03-09T02:06:38.877Z</updated>
+    <updated>2020-03-09T08:33:16.692Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://daxiangs.github.io/Note/"/>
     <link rel="self" href="https://daxiangs.github.io/Note/atom.xml"/>
@@ -10,6 +10,69 @@
     <logo>https://daxiangs.github.io/Note/images/avatar.png</logo>
     <icon>https://daxiangs.github.io/Note/favicon.ico</icon>
     <rights>All rights reserved 2020, daxiangs</rights>
+    <entry>
+        <title type="html"><![CDATA[Action线程和窗口间通信]]></title>
+        <id>https://daxiangs.github.io/Note/post/action-xian-cheng-he-chuang-kou-jian-tong-xin/</id>
+        <link href="https://daxiangs.github.io/Note/post/action-xian-cheng-he-chuang-kou-jian-tong-xin/">
+        </link>
+        <updated>2020-03-09T08:28:20.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="action系统自定义委托">Action系统自定义委托</h1>
+<pre><code class="language-c#">	public delegate void Action&lt;in T&gt;(T obj);
+</code></pre>
+<h1 id="利用action自定义事件进行线程间通信">利用Action自定义事件进行线程间通信</h1>
+<pre><code class="language-c#">
+    public struct ShootPoint { public int px; public int py; public int size; public double value; public DateTime time;
+
+        public override string ToString()
+        {
+            
+                return string.Format(&quot;({0},{1}) size: {2} value:{3}, time:{4}&quot;, px, py, size, value, time.ToString());
+        }
+    }
+	
+</code></pre>
+<h2 id="发送方">发送方</h2>
+<pre><code class="language-c#">
+//定义事件
+	public event Action&lt;GetPoint.ShootPoint&gt; m_EventShootPoint;
+	//发送消息（方法一）//直接处理
+	m_EventShootPoint(m_ShootPoint);
+	//发送消息（方法二）//在线程中处理新的内容
+	 m_EventShootPoint.BeginInvoke(ptList[0],null,null);
+	
+	```
+## 接收方
+
+```c#
+
+m_CameraForm = new MainWindow();
+
+m_CameraForm.m_EventShootPoint += showPt;
+
+//显示的窗口委托
+ public Action&lt;GetPoint.ShootPoint, int&gt; m_ActionShootPoint =ShowPoint；
+ 
+ 	//窗口显示
+   public void ShowPoint(GetPoint.ShootPoint pt, int flag)
+    {
+            
+	 }
+
+	//分发数据
+  public void showPt(GetPoint.ShootPoint stpt)
+  {
+
+		//将数据显示到其它窗口上
+      showPointForm1.Invoke(showPointForm1.m_ActionShootPoint, stpt, indexFlag);
+
+  }
+
+</code></pre>
+<h1 id="参考用法">参考用法</h1>
+<p>https://blog.csdn.net/u013986317/article/details/85607404<br>
+https://www.cnblogs.com/MJ-CAT/p/12069472.html</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[GitHub部署Gridea]]></title>
         <id>https://daxiangs.github.io/Note/post/github-bu-shu-gridea/</id>
