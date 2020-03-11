@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://daxiangs.github.io/Note/</id>
     <title>daxiangs</title>
-    <updated>2020-03-11T08:27:39.719Z</updated>
+    <updated>2020-03-11T08:32:17.699Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://daxiangs.github.io/Note/"/>
     <link rel="self" href="https://daxiangs.github.io/Note/atom.xml"/>
@@ -31,16 +31,14 @@
         </link>
         <updated>2020-03-09T02:04:33.000Z</updated>
         <summary type="html"><![CDATA[<h1 id="官方教程">官方教程</h1>
-<ol>
-<li><strong>创建 GitHub 账号，并创建一个仓库 Token</strong>。点击<a href="https://github.com/">GitHub</a>，进行注册。登录 GitHub 之后，点击<a href="https://github.com/settings/tokens/new">这里</a>创建一个 Token，<strong>勾选上 repo 的相关权限即可</strong>。生成之后记得把 Token 复制到你的本地，因为一旦关闭网页将不能再看到它。<br>
-<img src="https://gridea.dev/post-images/1575874237236.png" alt="img" loading="lazy"><br>
-<img src="https://gridea.dev/post-images/1575874322709.png" alt="img" loading="lazy"></li>
-<li><strong>创建仓库，存放构建后的网站文件</strong>。创建一个公开仓库，名为<strong>用户名.github.io</strong>。（将用户名替换为你的 GitHub 用户名）<br>
-<img src="https://gridea.dev/post-images/1575874957071.png" alt="img" loading="lazy"></li>
-<li><strong>进入 Gridea 进行远程设置</strong>。按照下图的示例进行设置，然后点击「检测远程链接」，进行配置检查。<br>
-<img src="https://gridea.dev/post-images/1575875241904.png" alt="img" loading="lazy"></li>
-<li><strong>同步</strong>。点击 Gridea 中的 同步按钮即可。初次部署等待几分钟之后就可以去浏览器访问了，默认地址为你在第 3 步所填写的域名。</li>
-</ol>
+<h2 id="1-创建-github-账号并创建一个仓库-token-点击github进行注册-登录-github-之后点击这里创建一个-token勾选上-repo-的相关权限即可-生成之后记得把-token-复制到你的本地因为一旦关闭网页将不能再看到它">1. <strong>创建 GitHub 账号，并创建一个仓库 Token</strong>。点击<a href="https://github.com/">GitHub</a>，进行注册。登录 GitHub 之后，点击<a href="https://github.com/settings/tokens/new">这里</a>创建一个 Token，<strong>勾选上 repo 的相关权限即可</strong>。生成之后记得把 Token 复制到你的本地，因为一旦关闭网页将不能再看到它。</h2>
+<p><img src="https://daxiangs.github.io/Note//post-images/1575874237236.png" alt="img" loading="lazy"><br>
+<img src="https://daxiangs.github.io/Note//post-images/1575874322709.png" alt="img" loading="lazy"></p>
+<h2 id="2-创建仓库存放构建后的网站文件-创建一个公开仓库名为用户名githubio-将用户名替换为你的-github-用户名">2. <strong>创建仓库，存放构建后的网站文件</strong>。创建一个公开仓库，名为<strong>用户名.github.io</strong>。（将用户名替换为你的 GitHub 用户名）</h2>
+<figure data-type="image" tabindex="1"><img src="https://daxiangs.github.io/Note//post-images/1575874957071.png" alt="img" loading="lazy"></figure>
+<h2 id="3-进入-gridea-进行远程设置-按照下图的示例进行设置然后点击检测远程链接进行配置检查">3. <strong>进入 Gridea 进行远程设置</strong>。按照下图的示例进行设置，然后点击「检测远程链接」，进行配置检查。</h2>
+<figure data-type="image" tabindex="2"><img src="https://daxiangs.github.io/Note//post-images/1575875241904.png" alt="img" loading="lazy"></figure>
+<h2 id="4-同步-点击-gridea-中的-同步按钮即可-初次部署等待几分钟之后就可以去浏览器访问了默认地址为你在第-3-步所填写的域名">4. <strong>同步</strong>。点击 Gridea 中的 同步按钮即可。初次部署等待几分钟之后就可以去浏览器访问了，默认地址为你在第 3 步所填写的域名。</h2>
 <p>以上，就完成一个静态博客的搭建了，期待你的每一次落笔成文。</p>
 <h1 id="注意事项">注意事项</h1>
 <ol>
@@ -49,19 +47,19 @@
 <img src="https://gitee.com/daxiangs/MarkDown/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/360%E6%88%AA%E5%9B%BE17321129938781.jpg" alt="开启page服务" loading="lazy"></li>
 <li>设置菜单页<br>
 <img src="https://gitee.com/daxiangs/MarkDown/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1583718009630.png" alt="菜单设置" loading="lazy"></li>
+<li>配置目录<br>
+<img src="https://gitee.com/daxiangs/MarkDown/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1583915383851.png" alt="配置目录 here" loading="lazy"></li>
 </ol>
 ]]></summary>
         <content type="html"><![CDATA[<h1 id="官方教程">官方教程</h1>
-<ol>
-<li><strong>创建 GitHub 账号，并创建一个仓库 Token</strong>。点击<a href="https://github.com/">GitHub</a>，进行注册。登录 GitHub 之后，点击<a href="https://github.com/settings/tokens/new">这里</a>创建一个 Token，<strong>勾选上 repo 的相关权限即可</strong>。生成之后记得把 Token 复制到你的本地，因为一旦关闭网页将不能再看到它。<br>
-<img src="https://gridea.dev/post-images/1575874237236.png" alt="img" loading="lazy"><br>
-<img src="https://gridea.dev/post-images/1575874322709.png" alt="img" loading="lazy"></li>
-<li><strong>创建仓库，存放构建后的网站文件</strong>。创建一个公开仓库，名为<strong>用户名.github.io</strong>。（将用户名替换为你的 GitHub 用户名）<br>
-<img src="https://gridea.dev/post-images/1575874957071.png" alt="img" loading="lazy"></li>
-<li><strong>进入 Gridea 进行远程设置</strong>。按照下图的示例进行设置，然后点击「检测远程链接」，进行配置检查。<br>
-<img src="https://gridea.dev/post-images/1575875241904.png" alt="img" loading="lazy"></li>
-<li><strong>同步</strong>。点击 Gridea 中的 同步按钮即可。初次部署等待几分钟之后就可以去浏览器访问了，默认地址为你在第 3 步所填写的域名。</li>
-</ol>
+<h2 id="1-创建-github-账号并创建一个仓库-token-点击github进行注册-登录-github-之后点击这里创建一个-token勾选上-repo-的相关权限即可-生成之后记得把-token-复制到你的本地因为一旦关闭网页将不能再看到它">1. <strong>创建 GitHub 账号，并创建一个仓库 Token</strong>。点击<a href="https://github.com/">GitHub</a>，进行注册。登录 GitHub 之后，点击<a href="https://github.com/settings/tokens/new">这里</a>创建一个 Token，<strong>勾选上 repo 的相关权限即可</strong>。生成之后记得把 Token 复制到你的本地，因为一旦关闭网页将不能再看到它。</h2>
+<p><img src="https://daxiangs.github.io/Note//post-images/1575874237236.png" alt="img" loading="lazy"><br>
+<img src="https://daxiangs.github.io/Note//post-images/1575874322709.png" alt="img" loading="lazy"></p>
+<h2 id="2-创建仓库存放构建后的网站文件-创建一个公开仓库名为用户名githubio-将用户名替换为你的-github-用户名">2. <strong>创建仓库，存放构建后的网站文件</strong>。创建一个公开仓库，名为<strong>用户名.github.io</strong>。（将用户名替换为你的 GitHub 用户名）</h2>
+<figure data-type="image" tabindex="1"><img src="https://daxiangs.github.io/Note//post-images/1575874957071.png" alt="img" loading="lazy"></figure>
+<h2 id="3-进入-gridea-进行远程设置-按照下图的示例进行设置然后点击检测远程链接进行配置检查">3. <strong>进入 Gridea 进行远程设置</strong>。按照下图的示例进行设置，然后点击「检测远程链接」，进行配置检查。</h2>
+<figure data-type="image" tabindex="2"><img src="https://daxiangs.github.io/Note//post-images/1575875241904.png" alt="img" loading="lazy"></figure>
+<h2 id="4-同步-点击-gridea-中的-同步按钮即可-初次部署等待几分钟之后就可以去浏览器访问了默认地址为你在第-3-步所填写的域名">4. <strong>同步</strong>。点击 Gridea 中的 同步按钮即可。初次部署等待几分钟之后就可以去浏览器访问了，默认地址为你在第 3 步所填写的域名。</h2>
 <p>以上，就完成一个静态博客的搭建了，期待你的每一次落笔成文。</p>
 <h1 id="注意事项">注意事项</h1>
 <ol>
@@ -70,6 +68,8 @@
 <img src="https://gitee.com/daxiangs/MarkDown/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/360%E6%88%AA%E5%9B%BE17321129938781.jpg" alt="开启page服务" loading="lazy"></li>
 <li>设置菜单页<br>
 <img src="https://gitee.com/daxiangs/MarkDown/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1583718009630.png" alt="菜单设置" loading="lazy"></li>
+<li>配置目录<br>
+<img src="https://gitee.com/daxiangs/MarkDown/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1583915383851.png" alt="配置目录 here" loading="lazy"></li>
 </ol>
 ]]></content>
     </entry>
