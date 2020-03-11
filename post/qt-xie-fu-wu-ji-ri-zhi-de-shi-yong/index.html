@@ -1,0 +1,387 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Qt写服务及日志的使用 | daxiangs</title>
+<link rel="shortcut icon" href="https://daxiangs.github.io/Note//favicon.ico?v=1583915251988">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://daxiangs.github.io/Note//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Qt写服务及日志的使用 | daxiangs - Atom Feed" href="https://daxiangs.github.io/Note//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="编写服务和日志
+在QtAbout中的QtWebApp中包含相关库，将相关的库加入本地工程即可。参照demo3中的程序完成服务和日志的使用
+
+1. 新建用到的工具类，并继承QtService
+#ifndef STARTUP_H
+#define..." />
+    <meta name="keywords" content="Qt,服务,日志" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://daxiangs.github.io/Note/">
+  <img class="avatar" src="https://daxiangs.github.io/Note//images/avatar.png?v=1583915251988" alt="">
+  </a>
+  <h1 class="site-title">
+    daxiangs
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="https://daxiangs.github.io/Note" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="https://daxiangs.github.io/Note/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="https://daxiangs.github.io/Note/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://daxiangs.github.io/Note/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Qt写服务及日志的使用
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-03-11
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://daxiangs.github.io/Note/tag/ElCkm9ltT/" class="post-tag">
+                  # Qt
+                </a>
+              
+                <a href="https://daxiangs.github.io/Note/tag/zrcagLoOEd/" class="post-tag">
+                  # 服务
+                </a>
+              
+                <a href="https://daxiangs.github.io/Note/tag/MFLPV0PqJn/" class="post-tag">
+                  # 日志
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://gitee.com/daxiangs/MarkDown/raw/master/小书匠/1583913454336.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="编写服务和日志">编写服务和日志</h1>
+<p>在QtAbout中的QtWebApp中包含相关库，将相关的库加入本地工程即可。参照demo3中的程序完成服务和日志的使用<br>
+<img src="https://gitee.com/daxiangs/MarkDown/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1583913454336.png" alt="enter description here" loading="lazy"></p>
+<h2 id="1-新建用到的工具类并继承qtserviceqcoreapplication">1. 新建用到的工具类，并继承QtService<QCoreApplication></h2>
+<pre><code class="language-qt">#ifndef STARTUP_H
+#define STARTUP_H
+
+#include &quot;qtservice.h&quot;
+#include &lt;QCoreApplication&gt;
+#include &quot;closeiemanger.h&quot;
+
+/** Name of this application */
+#define APPNAME &quot;CloseExplorerQml&quot;
+
+/** Publisher of this application */
+#define ORGANISATION &quot;Butterfly&quot;
+
+/** Short description of the Windows service */
+#define DESCRIPTION &quot;Close ieExploer Server&quot;
+
+
+QString searchConfigFile();
+
+class startup : public QtService&lt;QCoreApplication&gt;
+{
+
+public:
+    startup(int argc, char*argv[]);
+
+protected:
+
+    void start();
+
+    void stop();
+
+private:
+    CloseIEManger *m_cmdManger;
+
+};
+
+#endif // STARTUP_H
+
+</code></pre>
+<pre><code class="language-c++">#include &quot;startup.h&quot;
+#include &quot;filelogger.h&quot;
+
+#include &lt;QDir&gt;
+
+
+//log's headFile
+using namespace stefanfrings; //日志文件的命名空间
+/** Logger class */
+FileLogger* logger;
+
+/** Search the configuration file */
+QString searchConfigFile()
+{
+    QString binDir=QCoreApplication::applicationDirPath();
+    QString appName=QCoreApplication::applicationName();
+    QString fileName(appName+&quot;.ini&quot;);
+
+    QStringList searchList;
+    searchList.append(binDir);
+    searchList.append(binDir+&quot;/etc&quot;);
+    searchList.append(binDir+&quot;/../etc&quot;);
+    searchList.append(binDir+&quot;/../../etc&quot;); // for development without shadow build
+    searchList.append(binDir+&quot;/../&quot;+appName+&quot;/etc&quot;); // for development with shadow build
+    searchList.append(binDir+&quot;/../../&quot;+appName+&quot;/etc&quot;); // for development with shadow build
+    searchList.append(binDir+&quot;/../../../&quot;+appName+&quot;/etc&quot;); // for development with shadow build
+    searchList.append(binDir+&quot;/../../../../&quot;+appName+&quot;/etc&quot;); // for development with shadow build
+    searchList.append(binDir+&quot;/../../../../../&quot;+appName+&quot;/etc&quot;); // for development with shadow build
+    searchList.append(QDir::rootPath()+&quot;etc/opt&quot;);
+    searchList.append(QDir::rootPath()+&quot;etc&quot;);
+
+    foreach (QString dir, searchList)
+    {
+        QFile file(dir+&quot;/&quot;+fileName);
+        if (file.exists())
+        {
+            // found
+            fileName=QDir(file.fileName()).canonicalPath();
+            qDebug(&quot;Using config file %s&quot;,qPrintable(fileName));
+            return fileName;
+        }
+    }
+
+    // not found
+    foreach (QString dir, searchList)
+    {
+        qWarning(&quot;%s/%s not found&quot;,qPrintable(dir),qPrintable(fileName));
+    }
+    qFatal(&quot;Cannot find config file %s&quot;,qPrintable(fileName));
+    return 0;
+}
+
+startup::startup(int argc, char *argv[])
+    : QtService&lt;QCoreApplication&gt;(argc, argv, APPNAME)
+{
+    m_cmdManger = nullptr;
+    setServiceDescription(DESCRIPTION);
+    setStartupType(QtServiceController::AutoStartup);
+}
+
+
+//开始
+void startup::start()
+{
+    QCoreApplication* app = application();
+    app-&gt;setApplicationName(APPNAME);
+    app-&gt;setOrganizationName(ORGANISATION);
+
+
+    // Find the configuration file
+    QString configFileName=searchConfigFile();
+
+
+    // Configure logging into a file
+    QSettings* logSettings=new QSettings(configFileName,QSettings::IniFormat,app);
+    logSettings-&gt;beginGroup(&quot;logging&quot;);
+    logger=new FileLogger(logSettings,10000,app);
+    logger-&gt;installMsgHandler();
+
+
+    m_cmdManger = new CloseIEManger();
+     qWarning(&quot;Startup: Service has started&quot;);
+}
+
+//停止
+void startup::stop()
+{
+    delete  m_cmdManger;
+    m_cmdManger = nullptr;
+    qWarning(&quot;Startup: Service has been stopped&quot;);
+}
+
+
+</code></pre>
+<h2 id="日志的配置文件">日志的配置文件</h2>
+<p>在exe目录下创建etc目录并创建与exe同名的ini文件</p>
+<pre><code class="language-ini">
+
+[logging]
+fileName=../logs/CloseExplorerQml.log //日志存储位置，若该位置不存在，需要创建（当前需要在exe同级位置创建）
+minLevel=0 //日志等级，0全部输出
+bufferSize=0 //缓存，默认100,为0不缓存，直接写入文件
+maxSize=1000000 //一个日志文件的最大存储
+maxBackups=2 //最多保留的日志文件数目
+timestampFormat=dd.MM.yyyy hh:mm:ss.zzz
+msgFormat={timestamp} {typeNr} {type} {thread} {msg}
+; QT5 supports: msgFormat={timestamp} {typeNr} {type} {thread} {msg}\n  in {file} line {line} function {function}
+
+</code></pre>
+<h2 id="服务的启动文件">服务的启动文件</h2>
+<p>根据配置文件，当前库的日志，配置的目录位置如下：<br>
+<img src="https://gitee.com/daxiangs/MarkDown/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1583914846163.png" alt="enter description here" loading="lazy"></p>
+<h3 id="安装">安装</h3>
+<pre><code class="language-bat">echo off
+;;安装之前先卸载下，
+%SystemRoot%\system32\net stop CloseExplorerQml
+%SystemRoot%\system32\sc delete CloseExplorerQml
+
+;;创建服务，并指明路径，启动方式
+%SystemRoot%\system32\sc create CloseExplorerQml binPath= %~dp0CloseExplorerQml.exe start= auto 
+;;启动服务
+%SystemRoot%\system32\net start CloseExplorerQml           
+;;设置服务自动启动
+%SystemRoot%\system32\sc failure CloseExplorerQml reset= 0 actions= restart/3000/restart/3000/restart/3000     
+PAUSE
+</code></pre>
+<h3 id="卸载">卸载</h3>
+<pre><code class="language-bat">%SystemRoot%\system32\net stop CloseExplorerQml
+%SystemRoot%\system32\sc delete CloseExplorerQml
+%SystemRoot%\system32\taskkill /f /im &quot;CloseExplorerQml.exe&quot;
+PAUSE
+</code></pre>
+<h3 id=""></h3>
+<h3 id="打包程序">打包程序</h3>
+<pre><code class="language-bat">@ECHO OFF
+set qtPath=C:\Qt\Qt5.12.7\5.12.7\mingw73_32\bin ;;指定qt库的位置
+set  exeName=CloseExplorerQml.exe
+TITLE QT获取打包dll
+COLOR A
+set exeDir=%~dp0\%exeName%
+echo %mydir%
+cd /d %qtPath%
+windeployqt.exe %exeDir%
+pause  
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1%E5%92%8C%E6%97%A5%E5%BF%97">编写服务和日志</a>
+<ul>
+<li><a href="#1-%E6%96%B0%E5%BB%BA%E7%94%A8%E5%88%B0%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%B9%B6%E7%BB%A7%E6%89%BFqtserviceqcoreapplication">1. 新建用到的工具类，并继承QtService<QCoreApplication></a></li>
+<li><a href="#%E6%97%A5%E5%BF%97%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">日志的配置文件</a></li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%90%AF%E5%8A%A8%E6%96%87%E4%BB%B6">服务的启动文件</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
+<li><a href="#%E5%8D%B8%E8%BD%BD">卸载</a></li>
+<li></li>
+<li><a href="#%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F">打包程序</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://daxiangs.github.io/Note/post/action-xian-cheng-he-chuang-kou-jian-tong-xin/">
+              <h3 class="post-title">
+                Action线程和窗口间通信
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://daxiangs.github.io/Note//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
